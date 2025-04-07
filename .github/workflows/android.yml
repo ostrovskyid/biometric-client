@@ -39,15 +39,11 @@ jobs:
     - name: Build Debug APK
       run: gradle assembleDebug
     
-    - name: Configure Safe Directory
-      run: git config --global --add safe.directory /github/workspace
-    
-    - name: Ensure Version File
-      run: echo "1.0.0" > ./app/version.txt
-    
-    - name: Releasing using Hub
-      uses: adi-itgg/action-release-debug-release-apk@master
-      env:
-       GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
-       APP_FOLDER: app
-       RELEASE_TITLE: New Build
+    - name: Build Debug APK
+      run: gradle assembleDebug
+
+    - name: Upload Debug APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: debug-apk
+        path: app/build/outputs/apk/debug/*.apk

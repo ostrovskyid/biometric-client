@@ -43,7 +43,7 @@ jobs:
       run: gradle assembleDebug
 
     - name: Upload Debug APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: debug-apk
         path: app/build/outputs/apk/debug/*.apk

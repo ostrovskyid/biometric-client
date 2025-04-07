@@ -21,7 +21,6 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-      
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     
@@ -40,9 +39,11 @@ jobs:
     - name: Build Debug APK
       run: gradle assembleDebug
     
-    - name: Releasing using Hub
-      uses: adi-itgg/action-release-debug-release-apk@master
-      env:
-       GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
-       APP_FOLDER: app
-       RELEASE_TITLE: New Build
+    - name: Build Debug APK
+      run: gradle assembleDebug
+
+    - name: Upload Debug APK Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: debug-apk
+        path: app/build/outputs/apk/debug/*.apk
